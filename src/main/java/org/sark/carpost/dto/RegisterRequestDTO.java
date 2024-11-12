@@ -6,7 +6,6 @@ public class RegisterRequestDTO {
     @NotBlank(message = "Имя не может быть пустым или состоять только из пробелов")
     @Size(min = 3, max = 256, message = "Имя должно быть от 2 до 25 символов")
     private String login;
-
     @NotBlank(message = "Имя не может быть пустым или состоять только из пробелов")
     @Size(min = 2, max = 25, message = "Имя должно быть от 2 до 25 символов")
     private String name;
