@@ -16,7 +16,7 @@ public class RegisterRequestDTO {
 
     @Pattern(regexp = "^(\\+7|8)\\s?\\(?[0-9]{3}\\)?\\s?[0-9]{3}\\s?-?\\s?[0-9]{2}\\s?-?\\s?[0-9]{2}$",
             message = "Неверный формат телефонного номера")
-    private String number;
+    private String phone_number;
 
     public String getLogin() {
         return login;
@@ -36,10 +36,11 @@ public class RegisterRequestDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-    public String getNumber() {
-        return number;
+    public String getPhone_number() {
+        return phone_number;
     }
-    public void setNumber(String number) {
-        this.number = number;
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 }

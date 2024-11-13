@@ -8,6 +8,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class CarpostApplication {
     public static void main(String[] args) {
         SpringApplication.run(CarpostApplication.class, args);
-
     }
 }
