@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.Date;
+
 @Getter
 @Data
 @Entity
@@ -16,6 +18,8 @@ public class UserEntity {
     private String name;
     private String phone_number;
     private String password;
+    private Date issue_date;
+    private String driving_license;
 
     public UserEntity() {
     }

@@ -2,9 +2,12 @@ package org.sark.carpost.dto;
 
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import java.util.Date;
 
+@Setter @Getter
 public class UpdateRequestDTO {
-
     @Size(min = 2, max = 25, message = "Имя должно быть от 2 до 25 символов")
     private String name;
 
@@ -17,30 +20,5 @@ public class UpdateRequestDTO {
 
     // TODO: разобраться с валидацией даты
     //@Max(value = 1735670400000L, message = "Дата должна быть не позднее 1 июня 2025 года")
-    private int issue_date;
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getNumber() {
-        return number;
-    }
-    public void setNumber(String number) {
-        this.number = number;
-    }
-    public String getDriving_license() {
-        return driving_license;
-    }
-    public void setDriving_license(String driving_license) {
-        this.driving_license = driving_license;
-    }
-    public int getIssue_date() {
-        return issue_date;
-    }
-    public void setIssue_date(int issue_date) {
-        this.issue_date = issue_date;
-    }
+    private Date issue_date;
 }
