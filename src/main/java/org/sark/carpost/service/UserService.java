@@ -1,6 +1,7 @@
 package org.sark.carpost.service;
 
 import org.sark.carpost.dto.ProfileEditResponseDTO;
+import org.sark.carpost.dto.ProfileUpdateRequestDTO;
 import org.sark.carpost.dto.RegisterRequestDTO;
 import org.sark.carpost.entity.UserEntity;
 import org.sark.carpost.repository.UserRepository;
@@ -20,27 +21,38 @@ public class UserService {
     }
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
-    public ProfileEditResponseDTO getUserProfileInfoForEdit(){
+
+    public ProfileEditResponseDTO getUserProfileDTObyId(Long id) {
         //TODO: брать id основываясь на security config
-        Optional<UserEntity> userEntity = userRepository.findById(13);
+        Optional<UserEntity> userEntity = userRepository.findById(id);
         ProfileEditResponseDTO profileEditResponseDTO = new ProfileEditResponseDTO();
         if(userEntity.isPresent()){
             profileEditResponseDTO.setName(userEntity.get().getName());
-            profileEditResponseDTO.setNumber(userEntity.get().getPhone_number());
-            profileEditResponseDTO.setDriving_license(userEntity.get().getDriving_license());
-            profileEditResponseDTO.setIssue_date(userEntity.get().getIssue_date());
+            profileEditResponseDTO.setNumber(userEntity.get().getPhoneNumber());
+            profileEditResponseDTO.setDrivingLicense(userEntity.get().getDrivingLicense());
+            profileEditResponseDTO.setIssueDate(userEntity.get().getIssueDate());
         }
         logger.info(profileEditResponseDTO.toString());
         return profileEditResponseDTO;
     }
-
     public void addUser(RegisterRequestDTO registerRequestDTO) {
         UserEntity user = new UserEntity();
         user.setLogin(registerRequestDTO.getLogin());
         user.setName(registerRequestDTO.getName());
         user.setPassword(registerRequestDTO.getPassword());
-        user.setPhone_number(registerRequestDTO.getPhone_number());
+        user.setPhoneNumber(registerRequestDTO.getPhone_number());
+        user = userRepository.save(user);
         logger.info("Adding user: " + user);
-        userRepository.save(user);
+    }
+    public void updateProfile(ProfileUpdateRequestDTO profileUpdateRequestDTO) {
+        Optional<UserEntity> user = userRepository.findById(profileUpdateRequestDTO.getId());
+        if(user.isPresent()) {
+            UserEntity userEntity = user.get();
+            userEntity.setDrivingLicense(profileUpdateRequestDTO.getDrivingLicense());
+            userEntity.setIssueDate(profileUpdateRequestDTO.getIssueDate());
+            userEntity.setName(profileUpdateRequestDTO.getName());
+            userEntity.setPhoneNumber(profileUpdateRequestDTO.getPhoneNumber());
+            userRepository.save(userEntity);
+        }
     }
 }

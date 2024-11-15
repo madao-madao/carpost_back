@@ -5,7 +5,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 public class StoreCarProfileRequestDTO {
     @Size(min = 2, max = 25, message = "Имя машины должно быть от 2 до 25 символов")
     private String car_name;

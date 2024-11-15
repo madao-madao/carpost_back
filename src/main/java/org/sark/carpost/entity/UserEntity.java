@@ -3,7 +3,6 @@ package org.sark.carpost.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
-
 import java.util.Date;
 
 @Getter
@@ -16,12 +15,11 @@ public class UserEntity {
     private int id;
     private String login;
     private String name;
-    private String phone_number;
+    @Column(name = "phone_number")
+    private String phoneNumber;
     private String password;
-    private Date issue_date;
-    private String driving_license;
-
-    public UserEntity() {
-    }
-
+    @Column(name = "issue_date")
+    private Date issueDate;
+    @Column(name = "driving_license")
+    private String drivingLicense;
 }

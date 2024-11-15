@@ -4,7 +4,8 @@ import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Getter
+@Setter
+@Getter
 public class RegisterRequestDTO {
     @NotBlank(message = "Имя не может быть пустым или состоять только из пробелов")
     @Size(min = 3, max = 256, message = "Имя должно быть от 2 до 25 символов")
