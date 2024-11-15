@@ -10,7 +10,7 @@ import java.util.Date;
 @Getter
 public class ProfileUpdateRequestDTO {
 
-    private Long id;
+//    private Long id;
 
     @Size(min = 2, max = 25, message = "Имя должно быть от 2 до 25 символов")
     private String name;
@@ -25,4 +25,6 @@ public class ProfileUpdateRequestDTO {
     // TODO: разобраться с валидацией даты
     //@Max(value = 1735670400000L, message = "Дата должна быть не позднее 1 июня 2025 года")
     private Date issueDate;
+
+
 }

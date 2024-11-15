@@ -43,8 +43,8 @@ public class AppRestController {
     }
     @PostMapping("/api/profile/update")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO) {
-        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
-        userService.updateProfile(profileUpdateRequestDTO);
+//        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
+        userService.updateProfile(profileUpdateRequestDTO, 13L);
         return ResponseEntity.ok("Вы успешно редактировали профиль");
     }
     @PostMapping("/api/profile/car/store")

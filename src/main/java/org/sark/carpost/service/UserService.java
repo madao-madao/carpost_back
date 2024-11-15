@@ -40,12 +40,12 @@ public class UserService {
         user.setLogin(registerRequestDTO.getLogin());
         user.setName(registerRequestDTO.getName());
         user.setPassword(registerRequestDTO.getPassword());
-        user.setPhoneNumber(registerRequestDTO.getPhone_number());
+        user.setPhoneNumber(registerRequestDTO.getPhoneNumber());
         user = userRepository.save(user);
         logger.info("Adding user: " + user);
     }
-    public void updateProfile(ProfileUpdateRequestDTO profileUpdateRequestDTO) {
-        Optional<UserEntity> user = userRepository.findById(profileUpdateRequestDTO.getId());
+    public void updateProfile(ProfileUpdateRequestDTO profileUpdateRequestDTO, Long id) {
+        Optional<UserEntity> user = userRepository.findById(id);
         if(user.isPresent()) {
             UserEntity userEntity = user.get();
             userEntity.setDrivingLicense(profileUpdateRequestDTO.getDrivingLicense());

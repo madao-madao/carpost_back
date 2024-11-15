@@ -21,5 +21,5 @@ public class RegisterRequestDTO {
 
     @Pattern(regexp = "^(\\+7|8)\\s?\\(?[0-9]{3}\\)?\\s?[0-9]{3}\\s?-?\\s?[0-9]{2}\\s?-?\\s?[0-9]{2}$",
             message = "Неверный формат телефонного номера")
-    private String phone_number;
+    private String phoneNumber;
 }
