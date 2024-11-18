@@ -2,20 +2,21 @@ package org.sark.carpost.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
-import java.util.Date;
-
+import org.sark.carpost.entity.CarEntity;
+import java.util.ArrayList;
 
 @Setter
 @Getter
-@ToString
-public class ProfileEditResponseDTO {
+public class ProfileResponseDTO {
 
     private String name;
 
     private String phoneNumber;
 
+    private int experience;
+
     private String drivingLicense;
 
-    private Date issueDate;
+    private ArrayList<CarEntity> cars;
+
 }

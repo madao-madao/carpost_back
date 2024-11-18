@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import java.util.Date;
 
+
 @Getter
 @Data
 @Entity
@@ -12,7 +13,7 @@ import java.util.Date;
 public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     private String login;
     private String name;
     @Column(name = "phone_number")

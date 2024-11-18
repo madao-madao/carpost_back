@@ -1,9 +1,7 @@
 package org.sark.carpost.rest;
 
 import jakarta.validation.Valid;
-import org.sark.carpost.dto.RegisterRequestDTO;
-import org.sark.carpost.dto.StoreCarProfileRequestDTO;
-import org.sark.carpost.dto.ProfileUpdateRequestDTO;
+import org.sark.carpost.dto.*;
 import org.sark.carpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,16 +37,27 @@ public class AppRestController {
     }
     @GetMapping("/api/profile/edit")
     public ResponseEntity<?> editProfile() {
-        return ResponseEntity.ok(userService.getUserProfileDTObyId(13L));
+        return ResponseEntity.ok(userService.getUserProfileForEditDTO(13L));
     }
     @PostMapping("/api/profile/update")
-    public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO) {
+    public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO, BindingResult bindingResult) {
 //        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errorMessages);
+        }
         userService.updateProfile(profileUpdateRequestDTO, 13L);
         return ResponseEntity.ok("Вы успешно редактировали профиль");
     }
     @PostMapping("/api/profile/car/store")
     public ResponseEntity<?> storeCarProfile(@Valid @RequestBody StoreCarProfileRequestDTO storeCarProfileRequestDTO) {
         return ResponseEntity.ok("");
+    }
+    @GetMapping("/api/profile")
+    public ResponseEntity<ProfileResponseDTO> getProfile() {
+        ProfileResponseDTO profile = userService.getUserProfileDTO(13L);
+        return ResponseEntity.ok(profile);
     }
 }

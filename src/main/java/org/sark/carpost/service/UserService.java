@@ -1,6 +1,7 @@
 package org.sark.carpost.service;
 
 import org.sark.carpost.dto.ProfileEditResponseDTO;
+import org.sark.carpost.dto.ProfileResponseDTO;
 import org.sark.carpost.dto.ProfileUpdateRequestDTO;
 import org.sark.carpost.dto.RegisterRequestDTO;
 import org.sark.carpost.entity.UserEntity;
@@ -10,6 +11,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -22,13 +27,13 @@ public class UserService {
 
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    public ProfileEditResponseDTO getUserProfileDTObyId(Long id) {
+    public ProfileEditResponseDTO getUserProfileForEditDTO(Long id) {
         //TODO: брать id основываясь на security config
         Optional<UserEntity> userEntity = userRepository.findById(id);
         ProfileEditResponseDTO profileEditResponseDTO = new ProfileEditResponseDTO();
         if(userEntity.isPresent()){
             profileEditResponseDTO.setName(userEntity.get().getName());
-            profileEditResponseDTO.setNumber(userEntity.get().getPhoneNumber());
+            profileEditResponseDTO.setPhoneNumber(userEntity.get().getPhoneNumber());
             profileEditResponseDTO.setDrivingLicense(userEntity.get().getDrivingLicense());
             profileEditResponseDTO.setIssueDate(userEntity.get().getIssueDate());
         }
@@ -54,5 +59,25 @@ public class UserService {
             userEntity.setPhoneNumber(profileUpdateRequestDTO.getPhoneNumber());
             userRepository.save(userEntity);
         }
+    }
+    public ProfileResponseDTO getUserProfileDTO(Long id) {
+        UserEntity userEntity = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found with ID: 13"));
+        ProfileResponseDTO profileResponseDTO = new ProfileResponseDTO();
+        profileResponseDTO.setName(userEntity.getName());
+        profileResponseDTO.setPhoneNumber(userEntity.getPhoneNumber());
+        profileResponseDTO.setDrivingLicense(userEntity.getDrivingLicense());
+        // Получаем дату issueDate из объекта userEntity (тип Date)
+        Date userIssueDate = userEntity.getIssueDate();
+        // Преобразуем Date в LocalDate (извлекаем только дату без времени)
+        LocalDate localIssueDate = userIssueDate.toInstant()
+                                                .atZone(ZoneId.systemDefault())// Учитываем системную временную зону
+                                                .toLocalDate();
+        // Получаем сегодняшнюю дату в формате LocalDate
+        LocalDate today = LocalDate.now();
+        // Вычисляем разницу между localIssueDate и сегодняшней датой (в виде периодов: лет, месяцев, дней)
+        Period period = Period.between(localIssueDate, today);
+        profileResponseDTO.setExperience(period.getYears());
+        return profileResponseDTO;
     }
 }
