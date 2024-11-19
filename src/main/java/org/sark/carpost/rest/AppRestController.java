@@ -20,7 +20,15 @@ public class AppRestController {
     public AppRestController(UserService userService) {
         this.userService = userService;
     }
-
+    /**
+     * Краткое описание:
+        Метод	Операция	                Описание
+        GET	    Получение данных	        Запрашивает данные с сервера без изменения.
+        POST	Создание новых данных	    Отправляет данные на сервер для создания ресурса.
+        PUT	    Полное обновление данных	Заменяет весь ресурс на новый.
+        PATCH	Частичное обновление данных	Обновляет только часть ресурса.
+        DELETE	Удаление данных	            Удаляет ресурс с сервера.
+     */
     @PostMapping("/api/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult bindingResult) {
         // Если есть ошибки валидации
@@ -39,7 +47,7 @@ public class AppRestController {
     public ResponseEntity<?> editProfile() {
         return ResponseEntity.ok(userService.getUserProfileForEditDTO(13L));
     }
-    @PostMapping("/api/profile/update")
+    @PatchMapping("/api/profile/update")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO, BindingResult bindingResult) {
 //        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
         if (bindingResult.hasErrors()) {
@@ -59,5 +67,9 @@ public class AppRestController {
     public ResponseEntity<ProfileResponseDTO> getProfile() {
         ProfileResponseDTO profile = userService.getUserProfileDTO(13L);
         return ResponseEntity.ok(profile);
+    }
+    @GetMapping("api/profile/car/new")
+    public ResponseEntity<?> newCar(){
+        return ResponseEntity.ok("");
     }
 }

@@ -2,6 +2,9 @@ package org.sark.carpost.dto;
 
 import jakarta.annotation.Nullable;
 
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -27,8 +30,8 @@ public class ProfileUpdateRequestDTO {
     @Pattern(regexp = "^$|\\d{10}$", message = "Номер водительского удостоверения состоит из 4 цифр серии и 6 цифр номера")
     private String drivingLicense;
 
-    // TODO: разобраться с валидацией даты
-    //@Max(value = 1735670400000L, message = "Дата должна быть не позднее 1 июня 2025 года")
+    @PastOrPresent(message = "Значение не может превышать текущей даты")
+    @Temporal(TemporalType.DATE)
     private Date issueDate;
 
 }

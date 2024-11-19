@@ -4,23 +4,22 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 
+import java.util.ArrayList;
 
 @Getter
 @Data
 @Entity
-@Table(name = "car")
-public class CarEntity {
+@Table(name = "car_model")
+public class CarModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
 
-    private String vin;
+    @Column(name = "car_brand_id")
+    private Long carBrandId;
 
-    private String plate;
-
-    @OneToOne
-    private CarBrandEntity brand;
+    @OneToMany
+    private ArrayList<CarGenerationEntity> carGenerations;
 }
-
