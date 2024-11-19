@@ -6,15 +6,15 @@ import org.sark.carpost.entity.CarBrandEntity;
 import org.sark.carpost.entity.CarGenerationEntity;
 import org.sark.carpost.entity.CarModelEntity;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
 public class CreateCarResponseDTO {
 
-    private ArrayList<CarModelEntity> carModels;
+    private List<CarModelEntity> carModels;
 
-    private ArrayList<CarBrandEntity> carBrands;
+    private List<CarBrandEntity> carBrands;
 
-    private ArrayList<CarGenerationEntity> carGenerations;
+    private List<CarGenerationEntity> carGenerations;
 }

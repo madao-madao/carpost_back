@@ -2,6 +2,7 @@ package org.sark.carpost.rest;
 
 import jakarta.validation.Valid;
 import org.sark.carpost.dto.*;
+import org.sark.carpost.service.CarService;
 import org.sark.carpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 @RestController
 public class AppRestController {
     private final UserService userService;
+    private final CarService carService;
 
     @Autowired
-    public AppRestController(UserService userService) {
+    public AppRestController(UserService userService, CarService carService) {
         this.userService = userService;
+        this.carService = carService;
     }
     /**
      * Краткое описание:
@@ -69,7 +72,8 @@ public class AppRestController {
         return ResponseEntity.ok(profile);
     }
     @GetMapping("api/profile/car/new")
-    public ResponseEntity<?> newCar(){
-        return ResponseEntity.ok("");
+    public ResponseEntity<CreateCarResponseDTO> newCar(){
+        CreateCarResponseDTO createCarResponseDTO = carService.createCar();
+        return ResponseEntity.ok(createCarResponseDTO);
     }
 }

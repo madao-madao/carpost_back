@@ -3,8 +3,7 @@ package org.sark.carpost.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
-
-import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Data
@@ -17,9 +16,10 @@ public class CarModelEntity {
 
     private String name;
 
-    @Column(name = "car_brand_id")
-    private Long carBrandId;
+    @ManyToOne
+    @JoinColumn(name = "car_brand_id")
+    private CarBrandEntity carBrand;
 
-    @OneToMany
-    private ArrayList<CarGenerationEntity> carGenerations;
+    @OneToMany(mappedBy = "carModel", cascade = CascadeType.ALL)
+    private List<CarGenerationEntity> carGenerations;
 }

@@ -15,6 +15,7 @@ public class CarGenerationEntity {
 
     private String name;
 
-    @Column(name = "car_model_id")
-    private Long carModelId;
+    @ManyToOne
+    @JoinColumn(name = "car_model_id")
+    private CarModelEntity carModel;
 }
