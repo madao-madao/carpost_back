@@ -13,9 +13,13 @@ public class StoreCarProfileRequestDTO {
 
     @Pattern(regexp = "^[A-Z][0-9]{3}[A-Z]{2}[0-9]{3}$",
             message = "Номер машины должен быть в формате A123BC123")
-    private String carNumber;
+    private String plate;
 
     private String vin;
 
-    private String model;
+    private Long brandId;
+
+    private Long modelId;
+
+    private Long generationsId;
 }

@@ -1,7 +1,9 @@
 package org.sark.carpost.service;
 
 import org.sark.carpost.dto.CreateCarResponseDTO;
+import org.sark.carpost.dto.StoreCarProfileRequestDTO;
 import org.sark.carpost.entity.CarBrandEntity;
+import org.sark.carpost.entity.CarEntity;
 import org.sark.carpost.entity.CarGenerationEntity;
 import org.sark.carpost.entity.CarModelEntity;
 import org.sark.carpost.repository.CarBrandRepository;
@@ -38,18 +40,25 @@ public class CarService {
     }
     private static final Logger logger = LoggerFactory.getLogger(CarService.class);
 
-
     public CreateCarResponseDTO createCar() {
-        List<CarGenerationEntity> carGenerations = carGenerationRepository.findAll();
         List<CarBrandEntity> carBrands = carBrandRepository.findAll();
         List<CarModelEntity> carModels = carModelRepository.findAll();
+        List<CarGenerationEntity> carGenerations = carGenerationRepository.findAll();
         CreateCarResponseDTO createCarResponseDTO = new CreateCarResponseDTO();
-        createCarResponseDTO.setCarGenerations(carGenerations);
         createCarResponseDTO.setCarBrands(carBrands);
         createCarResponseDTO.setCarModels(carModels);
+        createCarResponseDTO.setCarGenerations(carGenerations);
         return createCarResponseDTO;
         /* Кратко: Этот метод получает все данные о поколениях машин, марках и моделях
         из базы данных,затем собирает эти данные в объект DTO и возвращает его. DTO (Data Transfer Object)
         используется для передачи данных между слоями приложения */
     }
+    /*public void addCar(StoreCarProfileRequestDTO storeCarProfileRequestDTO) {
+        CarEntity carEntity = new CarEntity();
+        carEntity.setName(storeCarProfileRequestDTO.getCarName());
+        carEntity.setPlate(storeCarProfileRequestDTO.getPlate());
+        carEntity.setVin(storeCarProfileRequestDTO.getVin());
+        carEntity.setBrand(storeCarProfileRequestDTO.getBrandId());
+
+    } */
 }

@@ -1,8 +1,13 @@
 package org.sark.carpost.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
+
+
 import java.util.List;
 
 @Getter
@@ -17,6 +22,8 @@ public class CarBrandEntity {
     private String name;
 
     @OneToMany(mappedBy = "carBrand", cascade = CascadeType.ALL)
-    private List<CarModelEntity> carModel;
 
+//    @JsonManagedReference
+    @JsonIgnore
+    private List<CarModelEntity> carModels;
 }

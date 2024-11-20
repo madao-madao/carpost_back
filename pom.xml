@@ -56,10 +56,19 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-web &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-web</artifactId>-->
+<!--            <version>6.3.4</version>-->
+<!--        </dependency>-->
+<!--        &lt;!&ndash; https://mvnrepository.com/artifact/org.springframework.security/spring-security-config &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-config</artifactId>-->
+<!--            <version>6.3.4</version>-->
+<!--        </dependency>-->
     </dependencies>
-
-
-
 </project>
 
 <!-- pom.xml прогуглить -->

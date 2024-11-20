@@ -1,5 +1,6 @@
 package org.sark.carpost.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
@@ -17,5 +18,6 @@ public class CarGenerationEntity {
 
     @ManyToOne
     @JoinColumn(name = "car_model_id")
+    @JsonBackReference
     private CarModelEntity carModel;
 }

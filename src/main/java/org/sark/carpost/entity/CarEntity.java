@@ -22,5 +22,11 @@ public class CarEntity {
 
     @OneToOne
     private CarBrandEntity brand;
+
+    @OneToOne
+    private CarModelEntity model;
+
+    @OneToOne
+    private CarGenerationEntity generation;
 }
 
