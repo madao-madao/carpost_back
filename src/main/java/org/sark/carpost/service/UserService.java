@@ -4,6 +4,7 @@ import org.sark.carpost.dto.ProfileEditResponseDTO;
 import org.sark.carpost.dto.ProfileResponseDTO;
 import org.sark.carpost.dto.ProfileUpdateRequestDTO;
 import org.sark.carpost.dto.RegisterRequestDTO;
+import org.sark.carpost.entity.CarEntity;
 import org.sark.carpost.entity.UserEntity;
 import org.sark.carpost.repository.UserRepository;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
 
@@ -67,6 +69,7 @@ public class UserService {
         profileResponseDTO.setName(userEntity.getName());
         profileResponseDTO.setPhoneNumber(userEntity.getPhoneNumber());
         profileResponseDTO.setDrivingLicense(userEntity.getDrivingLicense());
+        profileResponseDTO.setCars(userEntity.getCars());
         // Получаем дату issueDate из объекта userEntity (тип Date)
         Date userIssueDate = userEntity.getIssueDate();
         // Преобразуем Date в LocalDate (извлекаем только дату без времени)
@@ -80,5 +83,7 @@ public class UserService {
         profileResponseDTO.setExperience(period.getYears());
         return profileResponseDTO;
     }
+
+
 
 }

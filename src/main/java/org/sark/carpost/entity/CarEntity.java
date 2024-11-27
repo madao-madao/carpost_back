@@ -1,11 +1,9 @@
 package org.sark.carpost.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 
-
-@Getter
 @Data
 @Entity
 @Table(name = "car")
@@ -28,5 +26,9 @@ public class CarEntity {
 
     @OneToOne
     private CarGenerationEntity generation;
+
+    @ManyToOne
+    @JsonBackReference
+    private UserEntity user;
 }
 

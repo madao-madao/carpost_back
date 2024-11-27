@@ -5,6 +5,7 @@ import org.sark.carpost.dto.*;
 import org.sark.carpost.service.CarService;
 import org.sark.carpost.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -63,8 +64,15 @@ public class AppRestController {
         return ResponseEntity.ok("Вы успешно редактировали профиль");
     }
     @PostMapping("/api/profile/car/store")
-    public ResponseEntity<?> storeCarProfile(@Valid @RequestBody StoreCarProfileRequestDTO storeCarProfileRequestDTO) {
-        return ResponseEntity.ok("");
+    public ResponseEntity<?> storeCarProfile(@Valid @RequestBody StoreCarProfileRequestDTO storeCarProfileRequestDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errorMessages);
+        }
+        carService.storeCar(storeCarProfileRequestDTO);
+        return ResponseEntity.ok("Машина успешно добавлена");
     }
     @GetMapping("/api/profile")
     public ResponseEntity<ProfileResponseDTO> getProfile() {
@@ -76,4 +84,17 @@ public class AppRestController {
         CreateCarResponseDTO createCarResponseDTO = carService.createCar();
         return ResponseEntity.ok(createCarResponseDTO);
     }
+    @DeleteMapping("/api/profile/car/delete/{id}")
+    public ResponseEntity<?> deleteCar(@PathVariable("id") @RequestParam Long id){
+        boolean deleted = carService.deleteCarById(id);
+        if (deleted) {
+            return ResponseEntity.ok("Машина успешно удалена.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Машина не найдена.");
+        }
+    }
+    //    @PostMapping("/api/login")
+//    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
+//    }
+
 }

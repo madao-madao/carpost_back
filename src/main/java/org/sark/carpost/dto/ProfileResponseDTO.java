@@ -3,7 +3,7 @@ package org.sark.carpost.dto;
 import lombok.Getter;
 import lombok.Setter;
 import org.sark.carpost.entity.CarEntity;
-import java.util.ArrayList;
+import java.util.List;
 
 @Setter
 @Getter
@@ -17,6 +17,6 @@ public class ProfileResponseDTO {
 
     private String drivingLicense;
 
-    private ArrayList<CarEntity> cars;
+    private List<CarEntity> cars;
 
 }

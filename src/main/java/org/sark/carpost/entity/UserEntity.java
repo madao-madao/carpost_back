@@ -2,11 +2,11 @@ package org.sark.carpost.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
+
 import java.util.Date;
+import java.util.List;
 
 
-@Getter
 @Data
 @Entity
 @Table(name = "\"user\"")
@@ -23,4 +23,7 @@ public class UserEntity {
     private Date issueDate;
     @Column(name = "driving_license")
     private String drivingLicense;
+
+    @OneToMany(mappedBy = "user")
+    private List<CarEntity> cars;
 }

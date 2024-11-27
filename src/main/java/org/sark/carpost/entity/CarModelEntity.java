@@ -2,13 +2,11 @@ package org.sark.carpost.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+//import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
 import java.util.List;
 
-@Getter
 @Data
 @Entity
 @Table(name = "car_model")
