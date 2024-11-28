@@ -24,14 +24,15 @@ public class AppRestController {
         this.userService = userService;
         this.carService = carService;
     }
+
     /**
      * Краткое описание:
-        Метод	Операция	                Описание
-        GET	    Получение данных	        Запрашивает данные с сервера без изменения.
-        POST	Создание новых данных	    Отправляет данные на сервер для создания ресурса.
-        PUT	    Полное обновление данных	Заменяет весь ресурс на новый.
-        PATCH	Частичное обновление данных	Обновляет только часть ресурса.
-        DELETE	Удаление данных	            Удаляет ресурс с сервера.
+     * Метод	Операция	                Описание
+     * GET	    Получение данных	        Запрашивает данные с сервера без изменения.
+     * POST	Создание новых данных	    Отправляет данные на сервер для создания ресурса.
+     * PUT	    Полное обновление данных	Заменяет весь ресурс на новый.
+     * PATCH	Частичное обновление данных	Обновляет только часть ресурса.
+     * DELETE	Удаление данных	            Удаляет ресурс с сервера.
      */
     @PostMapping("/api/register")
     public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult bindingResult) {
@@ -47,10 +48,12 @@ public class AppRestController {
         userService.addUser(registerRequestDTO);
         return ResponseEntity.ok("Пользователь успешно зарегистрирован");
     }
+
     @GetMapping("/api/profile/edit")
     public ResponseEntity<?> editProfile() {
         return ResponseEntity.ok(userService.getUserProfileForEditDTO(13L));
     }
+
     @PatchMapping("/api/profile/update")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO, BindingResult bindingResult) {
 //        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
@@ -63,6 +66,7 @@ public class AppRestController {
         userService.updateProfile(profileUpdateRequestDTO, 13L);
         return ResponseEntity.ok("Вы успешно редактировали профиль");
     }
+
     @PostMapping("/api/profile/car/store")
     public ResponseEntity<?> storeCarProfile(@Valid @RequestBody StoreCarProfileRequestDTO storeCarProfileRequestDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -74,18 +78,21 @@ public class AppRestController {
         carService.storeCar(storeCarProfileRequestDTO);
         return ResponseEntity.ok("Машина успешно добавлена");
     }
+
     @GetMapping("/api/profile")
     public ResponseEntity<ProfileResponseDTO> getProfile() {
         ProfileResponseDTO profile = userService.getUserProfileDTO(13L);
         return ResponseEntity.ok(profile);
     }
+
     @GetMapping("api/profile/car/new")
-    public ResponseEntity<CreateCarResponseDTO> newCar(){
+    public ResponseEntity<CreateCarResponseDTO> newCar() {
         CreateCarResponseDTO createCarResponseDTO = carService.createCar();
         return ResponseEntity.ok(createCarResponseDTO);
     }
+
     @DeleteMapping("/api/profile/car/delete/{id}")
-    public ResponseEntity<?> deleteCar(@PathVariable("id") @RequestParam Long id){
+    public ResponseEntity<?> deleteCar(@PathVariable("id") Long id) {
         boolean deleted = carService.deleteCarById(id);
         if (deleted) {
             return ResponseEntity.ok("Машина успешно удалена.");
@@ -96,5 +103,4 @@ public class AppRestController {
     //    @PostMapping("/api/login")
 //    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
 //    }
-
 }
