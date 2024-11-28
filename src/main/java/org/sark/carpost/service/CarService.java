@@ -35,6 +35,7 @@ public class CarService {
         this.carBrandRepository = carBrandRepository;
         this.userRepository = userRepository;
     }
+
     private static final Logger logger = LoggerFactory.getLogger(CarService.class);
 
     public CreateCarResponseDTO createCar() {
@@ -50,37 +51,39 @@ public class CarService {
         из базы данных,затем собирает эти данные в объект DTO и возвращает его. DTO (Data Transfer Object)
         используется для передачи данных между слоями приложения */
     }
-     public void storeCar(StoreCarProfileRequestDTO storeCarProfileRequestDTO) {
+
+    public void storeCar(StoreCarProfileRequestDTO storeCarProfileRequestDTO) {
         CarEntity carEntity = new CarEntity();
         //ToDO переделать Id
-         Long UserId = 13L;
-         if(UserId != null) {
-             Optional<UserEntity> userOptional = userRepository.findById(UserId);
-             userOptional.ifPresent(carEntity::setUser);
-         }
+        Long UserId = 13L;
+        if (UserId != null) {
+            Optional<UserEntity> userOptional = userRepository.findById(UserId);
+            userOptional.ifPresent(carEntity::setUser);
+        }
         Long BrandId = storeCarProfileRequestDTO.getBrandId();
-        if(BrandId != null) {
+        if (BrandId != null) {
             Optional<CarBrandEntity> brandOptional = carBrandRepository.findById(BrandId);
             brandOptional.ifPresent(carEntity::setBrand);
         }
-         Long ModelId = storeCarProfileRequestDTO.getModelId();
-         if(ModelId != null) {
-             Optional<CarModelEntity> carModelOptional = carModelRepository.findById(ModelId);
-             carModelOptional.ifPresent(carEntity::setModel);
-         }
-         Long GenerationId = storeCarProfileRequestDTO.getGenerationId();
-         if(GenerationId != null) {
-             Optional<CarGenerationEntity> carGenerationOptional = carGenerationRepository.findById(GenerationId);
-             carGenerationOptional.ifPresent(carEntity::setGeneration);
-         }
+        Long ModelId = storeCarProfileRequestDTO.getModelId();
+        if (ModelId != null) {
+            Optional<CarModelEntity> carModelOptional = carModelRepository.findById(ModelId);
+            carModelOptional.ifPresent(carEntity::setModel);
+        }
+        Long GenerationId = storeCarProfileRequestDTO.getGenerationId();
+        if (GenerationId != null) {
+            Optional<CarGenerationEntity> carGenerationOptional = carGenerationRepository.findById(GenerationId);
+            carGenerationOptional.ifPresent(carEntity::setGeneration);
+        }
         carEntity.setName(storeCarProfileRequestDTO.getName());
         carEntity.setPlate(storeCarProfileRequestDTO.getPlate());
         carEntity.setVin(storeCarProfileRequestDTO.getVin());
         carRepository.save(carEntity);
     }
+
     public boolean deleteCarById(Long id) {
         Optional<CarEntity> carOptional = carRepository.findById(id);
-        if(carOptional.isPresent()) {
+        if (carOptional.isPresent()) {
             carRepository.deleteById(id);
             return true;
         } else {

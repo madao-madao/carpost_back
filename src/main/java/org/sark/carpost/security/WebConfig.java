@@ -1,4 +1,5 @@
 package org.sark.carpost.security;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -7,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class WebConfig implements WebMvcConfigurer {
 
     @Override
-public void addCorsMappings(CorsRegistry registry) {
+    public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")  // Разрешаем доступ ко всем эндпоинтам
                 .allowedOrigins("http://localhost:5173")  // Разрешаем запросы с localhost:5173
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH")  // Разрешенные методы
