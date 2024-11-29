@@ -46,7 +46,6 @@ public class UserService {
         UserEntity user = new UserEntity();
         user.setLogin(registerRequestDTO.getLogin());
         user.setName(registerRequestDTO.getName());
-
         user.setPassword(registerRequestDTO.getPassword());
         user.setPhoneNumber(registerRequestDTO.getPhoneNumber());
         user = userRepository.save(user);

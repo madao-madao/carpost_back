@@ -1,7 +1,7 @@
 package org.sark.carpost.service;
 
-import org.sark.carpost.dto.CreateCarResponseDTO;
-import org.sark.carpost.dto.StoreCarProfileRequestDTO;
+import jakarta.persistence.EntityNotFoundException;
+import org.sark.carpost.dto.*;
 import org.sark.carpost.entity.*;
 import org.sark.carpost.repository.*;
 import org.slf4j.Logger;
@@ -90,4 +90,45 @@ public class CarService {
             return false;
         }
     }
+
+    public CarProfileResponseDTO carFindById(Long id) {
+        CarEntity carEntity = carRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Машина с данным ID " + id + " не найдена"));
+        CarProfileResponseDTO carProfileResponseDTO = new CarProfileResponseDTO();
+        carProfileResponseDTO.setName(carEntity.getName());
+        carProfileResponseDTO.setPlate(carEntity.getPlate());
+        carProfileResponseDTO.setVin(carEntity.getVin());
+        carProfileResponseDTO.setBrandId(carEntity.getBrand().getId());
+        carProfileResponseDTO.setModelId(carEntity.getModel().getId());
+        carProfileResponseDTO.setGenerationId(carEntity.getGeneration().getId());
+        return carProfileResponseDTO;
+    }
+
+    public void updateCarForProfile(CarUpdateRequestDTO updateCarRequestDTO) {
+        Optional<CarEntity> carOptional = carRepository.findById(updateCarRequestDTO.getId());
+        if (carOptional.isPresent()) {
+            CarEntity carEntity = carOptional.get();
+            carEntity.setName(updateCarRequestDTO.getName());
+            carEntity.setPlate(updateCarRequestDTO.getPlate());
+            carEntity.setVin(updateCarRequestDTO.getVin());
+            Long BrandId = updateCarRequestDTO.getBrandId();
+            if (BrandId != null) {
+                Optional<CarBrandEntity> brandOptional = carBrandRepository.findById(BrandId);
+                brandOptional.ifPresent(carEntity::setBrand);
+            }
+            Long ModelId = updateCarRequestDTO.getModelId();
+            if (ModelId != null) {
+                Optional<CarModelEntity> carModelOptional = carModelRepository.findById(ModelId);
+                carModelOptional.ifPresent(carEntity::setModel);
+            }
+            Long GenerationId = updateCarRequestDTO.getGenerationId();
+            if (GenerationId != null) {
+                Optional<CarGenerationEntity> carGenerationOptional = carGenerationRepository.findById(GenerationId);
+                carGenerationOptional.ifPresent(carEntity::setGeneration);
+            }
+            carRepository.save(carEntity);
+        }
+    }
 }
+
+

@@ -29,7 +29,7 @@ public class AppRestController {
      * Краткое описание:
      * Метод	Операция	                Описание
      * GET	    Получение данных	        Запрашивает данные с сервера без изменения.
-     * POST	Создание новых данных	    Отправляет данные на сервер для создания ресурса.
+     * POST	    Создание новых данных	    Отправляет данные на сервер для создания ресурса.
      * PUT	    Полное обновление данных	Заменяет весь ресурс на новый.
      * PATCH	Частичное обновление данных	Обновляет только часть ресурса.
      * DELETE	Удаление данных	            Удаляет ресурс с сервера.
@@ -100,7 +100,22 @@ public class AppRestController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Машина не найдена.");
         }
     }
-    //    @PostMapping("/api/login")
-//    public ResponseEntity<?> login(@Valid @RequestBody LoginRequestDTO loginRequestDTO) {
-//    }
+
+    @GetMapping("api/profile/car/{id}")
+    public ResponseEntity<CarProfileResponseDTO> getCar(@PathVariable("id") Long id) {
+        CarProfileResponseDTO carProfileResponseDTO = carService.carFindById(id);
+        return ResponseEntity.ok(carProfileResponseDTO);
+    }
+
+    @PatchMapping("/api/profile/car/update/{id}")
+    public ResponseEntity<?> updateCar(@Valid @RequestBody CarUpdateRequestDTO carUpdateRequestDTO, BindingResult bindingResult ) {
+        if (bindingResult.hasErrors()) {
+            List<String> errorMessages = bindingResult.getAllErrors().stream()
+                    .map(ObjectError::getDefaultMessage)
+                    .collect(Collectors.toList());
+            return ResponseEntity.badRequest().body(errorMessages);
+        }
+        carService.updateCarForProfile(carUpdateRequestDTO);
+        return ResponseEntity.ok("Информация по машине обновлена");
+    }
 }

@@ -7,7 +7,9 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class StoreCarProfileRequestDTO {
+public class CarUpdateRequestDTO {
+
+    private Long id;
 
     @Size(min = 2, max = 25, message = "Имя машины должно быть от 2 до 25 символов")
     private String name;
@@ -16,6 +18,7 @@ public class StoreCarProfileRequestDTO {
             message = "Номер машины должен быть в формате A123BC123")
     private String plate;
 
+    @Size(min = 17, max = 17)
     private String vin;
 
     private Long brandId;
@@ -23,4 +26,5 @@ public class StoreCarProfileRequestDTO {
     private Long modelId;
 
     private Long generationId;
+
 }
