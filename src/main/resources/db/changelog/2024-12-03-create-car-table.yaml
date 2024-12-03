@@ -1,0 +1,41 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Sarkzuki
+      changes:
+        - createTable:
+            tableName: car
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: vin
+                  type: varchar(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: plate
+                  type: varchar(30)
+              - column:
+                  name: brand_id
+                  type: BIGINT
+              - column:
+                  name: model_id
+                  type: BIGINT
+              - column:
+                  name: generation_id
+                  type: BIGINT
+              - column:
+                  name: user_id
+                  type: BIGINT
