@@ -2,9 +2,9 @@ package org.sark.carpost.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.sark.carpost.entity.CarBrandEntity;
-import org.sark.carpost.entity.CarGenerationEntity;
-import org.sark.carpost.entity.CarModelEntity;
+import org.sark.carpost.entity.car.CarBrandEntity;
+import org.sark.carpost.entity.car.CarGenerationEntity;
+import org.sark.carpost.entity.car.CarModelEntity;
 
 import java.util.List;
 

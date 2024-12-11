@@ -1,6 +1,6 @@
-package org.sark.carpost.repository;
+package org.sark.carpost.repository.car;
 
-import org.sark.carpost.entity.CarEntity;
+import org.sark.carpost.entity.car.CarEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CarRepository extends JpaRepository<CarEntity, Long> {

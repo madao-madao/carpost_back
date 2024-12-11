@@ -1,9 +1,10 @@
-package org.sark.carpost.entity;
+package org.sark.carpost.entity.car;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.sark.carpost.entity.user.UserEntity;
 
 @Setter
 @Getter

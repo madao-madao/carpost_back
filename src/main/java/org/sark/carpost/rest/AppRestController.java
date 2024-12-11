@@ -1,9 +1,16 @@
 package org.sark.carpost.rest;
 
 import jakarta.validation.Valid;
-import org.sark.carpost.dto.*;
-import org.sark.carpost.service.CarService;
-import org.sark.carpost.service.UserService;
+import org.sark.carpost.dto.CarProfileResponseDTO;
+import org.sark.carpost.dto.CarUpdateRequestDTO;
+import org.sark.carpost.dto.CreateCarResponseDTO;
+import org.sark.carpost.dto.StoreCarProfileRequestDTO;
+import org.sark.carpost.dto.ProfileResponseDTO;
+import org.sark.carpost.dto.ProfileUpdateRequestDTO;
+import org.sark.carpost.dto.RegisterRequestDTO;
+import org.sark.carpost.service.car.CarDataSeederService;
+import org.sark.carpost.service.car.CarService;
+import org.sark.carpost.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +25,13 @@ import java.util.stream.Collectors;
 public class AppRestController {
     private final UserService userService;
     private final CarService carService;
+    private final CarDataSeederService carDataSeederService;
 
     @Autowired
-    public AppRestController(UserService userService, CarService carService) {
+    public AppRestController(UserService userService, CarService carService, CarDataSeederService carDataSeederService) {
         this.userService = userService;
         this.carService = carService;
+        this.carDataSeederService = carDataSeederService;
     }
 
     /**
@@ -117,5 +126,11 @@ public class AppRestController {
         }
         carService.updateCarForProfile(carUpdateRequestDTO);
         return ResponseEntity.ok("Информация по машине обновлена");
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<?> test(){
+        carDataSeederService.getDataFromCarBase();
+        return ResponseEntity.ok("");
     }
 }

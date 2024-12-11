@@ -1,9 +1,20 @@
-package org.sark.carpost.service;
+package org.sark.carpost.service.car;
 
 import jakarta.persistence.EntityNotFoundException;
-import org.sark.carpost.dto.*;
-import org.sark.carpost.entity.*;
-import org.sark.carpost.repository.*;
+import org.sark.carpost.dto.CarProfileResponseDTO;
+import org.sark.carpost.dto.CarUpdateRequestDTO;
+import org.sark.carpost.dto.CreateCarResponseDTO;
+import org.sark.carpost.dto.StoreCarProfileRequestDTO;
+import org.sark.carpost.entity.car.CarBrandEntity;
+import org.sark.carpost.entity.car.CarEntity;
+import org.sark.carpost.entity.car.CarGenerationEntity;
+import org.sark.carpost.entity.car.CarModelEntity;
+import org.sark.carpost.entity.user.UserEntity;
+import org.sark.carpost.repository.car.CarBrandRepository;
+import org.sark.carpost.repository.car.CarGenerationRepository;
+import org.sark.carpost.repository.car.CarModelRepository;
+import org.sark.carpost.repository.car.CarRepository;
+import org.sark.carpost.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -128,6 +139,8 @@ public class CarService {
             carRepository.save(carEntity);
         }
     }
+
+
 }
 
 

@@ -1,11 +1,11 @@
-package org.sark.carpost.service;
+package org.sark.carpost.service.user;
 
 import org.sark.carpost.dto.ProfileEditResponseDTO;
 import org.sark.carpost.dto.ProfileResponseDTO;
 import org.sark.carpost.dto.ProfileUpdateRequestDTO;
 import org.sark.carpost.dto.RegisterRequestDTO;
-import org.sark.carpost.entity.UserEntity;
-import org.sark.carpost.repository.UserRepository;
+import org.sark.carpost.entity.user.UserEntity;
+import org.sark.carpost.repository.user.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

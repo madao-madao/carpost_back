@@ -1,7 +1,8 @@
-package org.sark.carpost.entity;
+package org.sark.carpost.entity.user;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.sark.carpost.entity.car.CarEntity;
 
 import java.util.Date;
 import java.util.List;
