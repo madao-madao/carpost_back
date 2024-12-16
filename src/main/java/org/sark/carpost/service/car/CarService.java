@@ -1,4 +1,4 @@
-package org.sark.carpost.service;
+package org.sark.carpost.service.car;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.sark.carpost.dto.*;

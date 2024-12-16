@@ -3,7 +3,6 @@ package org.sark.carpost.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,7 +21,7 @@ public class CarModelEntity {
 
     @ManyToOne
     @JoinColumn(name = "car_brand_id")
-    @JsonBackReference
+    // @JsonBackReference
     private CarBrandEntity carBrand;
 
 

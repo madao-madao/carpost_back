@@ -2,8 +2,8 @@ package org.sark.carpost.rest;
 
 import jakarta.validation.Valid;
 import org.sark.carpost.dto.*;
-import org.sark.carpost.service.CarService;
 import org.sark.carpost.service.UserService;
+import org.sark.carpost.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,4 +118,5 @@ public class AppRestController {
         carService.updateCarForProfile(carUpdateRequestDTO);
         return ResponseEntity.ok("Информация по машине обновлена");
     }
+    
 }
