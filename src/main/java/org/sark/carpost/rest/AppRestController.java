@@ -7,10 +7,12 @@ import org.sark.carpost.service.car.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,19 +53,18 @@ public class AppRestController {
 
     @GetMapping("/api/profile/edit")
     public ResponseEntity<?> editProfile() {
-        return ResponseEntity.ok(userService.getUserProfileForEditDTO(13L));
+        return ResponseEntity.ok(userService.getUserProfileForEditDTO(getUserFromToken()));
     }
 
     @PatchMapping("/api/profile/update")
     public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO, BindingResult bindingResult) {
-//        if(profileUpdateRequestDTO.getId() == null) profileUpdateRequestDTO.setId(13L);
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.toList());
             return ResponseEntity.badRequest().body(errorMessages);
         }
-        userService.updateProfile(profileUpdateRequestDTO, 13L);
+        userService.updateProfile(profileUpdateRequestDTO, getUserFromToken());
         return ResponseEntity.ok("Вы успешно редактировали профиль");
     }
 
@@ -81,7 +82,7 @@ public class AppRestController {
 
     @GetMapping("/api/profile")
     public ResponseEntity<ProfileResponseDTO> getProfile() {
-        ProfileResponseDTO profile = userService.getUserProfileDTO(13L);
+        ProfileResponseDTO profile = userService.getUserProfileDTO(getUserFromToken());
         return ResponseEntity.ok(profile);
     }
 
@@ -118,5 +119,10 @@ public class AppRestController {
         carService.updateCarForProfile(carUpdateRequestDTO);
         return ResponseEntity.ok("Информация по машине обновлена");
     }
-    
+
+    public Long getUserFromToken(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        return Long.parseLong(jwt.getClaims().get("sub").toString());
+    }
 }

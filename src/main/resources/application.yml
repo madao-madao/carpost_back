@@ -9,5 +9,26 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         ddl-auto: none
     show-sql: false
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: springsecurity
+            client-secret: 7XOf8emJKR0L005QceC2QcUEHaU4l502
+            scope: openid
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8280/realms/carpostoriginal
+            authorization-uri: http://localhost:8280/realms/carpostoriginal/protocol/openid-connect/auth
+            token-uri: http://localhost:8280/realms/carpostoriginal/protocol/openid-connect/token
+            user-info-uri: http://localhost:8280/realms/carpostoriginal/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8280/realms/carpostoriginal/protocol/openid-connect/certs
+
+server:
+  port: 8281
+
 
 #Файл конфигурации приложения
