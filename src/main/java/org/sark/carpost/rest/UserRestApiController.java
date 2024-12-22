@@ -1,24 +1,25 @@
 package org.sark.carpost.rest;
 
 import jakarta.validation.Valid;
-import org.sark.carpost.dto.*;
+import org.sark.carpost.dto.ProfileResponseDTO;
+import org.sark.carpost.dto.ProfileUpdateRequestDTO;
 import org.sark.carpost.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 @RestController
-public class AppRestController {
+@RequestMapping("/api")
+public class UserRestApiController {
 
     private final UserService userService;
 
-
-    @Autowired
-    public AppRestController(UserService userService) {
+    public UserRestApiController(UserService userService) {
         this.userService = userService;
     }
 
@@ -31,15 +32,27 @@ public class AppRestController {
      * PATCH	Частичное обновление данных	Обновляет только часть ресурса.
      * DELETE	Удаление данных	            Удаляет ресурс с сервера.
      */
-    @PostMapping("/api/register")
-    public ResponseEntity<?> register(@Valid @RequestBody RegisterRequestDTO registerRequestDTO, BindingResult bindingResult) {
+
+    @GetMapping("/profile/edit")
+    public ResponseEntity<?> editProfile() {
+        return ResponseEntity.ok(userService.getUserProfileForEditDTO(userService.getUserFromToken()));
+    }
+
+    @PatchMapping("/profile/update")
+    public ResponseEntity<?> updateProfile(@Valid @RequestBody ProfileUpdateRequestDTO profileUpdateRequestDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             List<String> errorMessages = bindingResult.getAllErrors().stream()
                     .map(ObjectError::getDefaultMessage)
                     .collect(Collectors.toList());
             return ResponseEntity.badRequest().body(errorMessages);
         }
-        userService.addUser(registerRequestDTO);
-        return ResponseEntity.ok("Пользователь успешно зарегистрирован");
+        userService.updateProfile(profileUpdateRequestDTO, userService.getUserFromToken());
+        return ResponseEntity.ok("Вы успешно редактировали профиль");
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<ProfileResponseDTO> getProfile() {
+        ProfileResponseDTO profile = userService.getUserProfileDTO(userService.getUserFromToken());
+        return ResponseEntity.ok(profile);
     }
 }

@@ -9,6 +9,9 @@ import org.sark.carpost.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -87,4 +90,11 @@ public class UserService {
         }
         return profileResponseDTO;
     }
+
+    public Long getUserFromToken(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Jwt jwt = (Jwt) authentication.getPrincipal();
+        return Long.parseLong(jwt.getClaims().get("sub").toString());
+    }
+
 }

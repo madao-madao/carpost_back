@@ -4,8 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import org.sark.carpost.dto.*;
 import org.sark.carpost.entity.*;
 import org.sark.carpost.repository.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.sark.carpost.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,17 +24,18 @@ public class CarService {
 
     private final UserRepository userRepository;
 
+    private final UserService userService;
+
 
     public CarService(CarRepository carRepository, CarModelRepository carModelRepository,
-                      CarGenerationRepository carGenerationRepository, CarBrandRepository carBrandRepository, UserRepository userRepository) {
+                      CarGenerationRepository carGenerationRepository, CarBrandRepository carBrandRepository, UserRepository userRepository, UserService userService) {
         this.carRepository = carRepository;
         this.carModelRepository = carModelRepository;
         this.carGenerationRepository = carGenerationRepository;
         this.carBrandRepository = carBrandRepository;
         this.userRepository = userRepository;
+        this.userService = userService;
     }
-
-    private static final Logger logger = LoggerFactory.getLogger(CarService.class);
 
     public CreateCarResponseDTO createCar() {
         List<CarBrandEntity> carBrands = carBrandRepository.findAll();
