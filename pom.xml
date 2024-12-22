@@ -10,6 +10,23 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>3.3.5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
     <groupId>org.sark</groupId>
     <artifactId>carpost_back</artifactId>
     <version>1.0-SNAPSHOT</version>
@@ -84,4 +101,4 @@
     </dependencies>
 </project>
 
-<!-- pom.xml прогуглить -->
+        <!-- pom.xml прогуглить -->
